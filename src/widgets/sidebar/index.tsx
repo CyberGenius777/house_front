@@ -3,8 +3,8 @@
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import clsx from "clsx";
+
 import { ThemeToggle } from "@/features/theme-toggle";
-import { useEffect, useState } from "react";
 import { useLogoutMutation } from "@/shared/api/auth";
 
 const navItems = [
@@ -25,14 +25,6 @@ export const Sidebar = () => {
 
   const [logout] = useLogoutMutation();
 
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  if (!mounted) return null;
-
   const handleLogout = async () => {
     await logout();
     push("/");
@@ -51,7 +43,7 @@ export const Sidebar = () => {
             href={href}
             className={clsx(
               "block px-2 py-1 rounded transition",
-              mounted && pathname === href
+              pathname === href
                 ? "bg-[#292929] text-white font-semibold"
                 : "hover:text-white",
             )}
