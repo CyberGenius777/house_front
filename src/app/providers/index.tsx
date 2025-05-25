@@ -1,22 +1,25 @@
-'use client'
+"use client";
 
-import { FC, PropsWithChildren } from 'react'
-import { EnhancedStore } from '@reduxjs/toolkit'
+import { FC, PropsWithChildren } from "react";
+import { EnhancedStore } from "@reduxjs/toolkit";
 
-import { WithInitQuery } from './with-init-query'
-import { WithStore } from './with-store'
-import { WithAuthForm } from './with-auth-form'
+import { WithInitQuery } from "./with-init-query";
+import { WithStore } from "./with-store";
+import { WithAuthForm } from "./with-auth-form";
+import { WithThemeProvider } from "./with-theme-provider";
 
 interface Props extends PropsWithChildren {
-  store: EnhancedStore
+  store: EnhancedStore;
 }
 
 export const WithProviders: FC<Props> = ({ store, children }) => {
   return (
     <WithStore store={store}>
       <WithAuthForm>
-        <WithInitQuery>{children}</WithInitQuery>
+        <WithInitQuery>
+          <WithThemeProvider>{children}</WithThemeProvider>
+        </WithInitQuery>
       </WithAuthForm>
     </WithStore>
-  )
-}
+  );
+};

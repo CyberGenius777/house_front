@@ -1,17 +1,21 @@
-'use client'
+"use client";
 
-import { ButtonHTMLAttributes } from 'react'
+import { ButtonHTMLAttributes } from "react";
 
-type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
-  variant?: 'primary' | 'secondary'
+interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
+  children: React.ReactNode;
 }
 
-export const Button = ({ variant = 'primary', ...props }: ButtonProps) => {
-  const base = 'rounded-xl px-4 py-2 font-medium transition-colors duration-200'
-  const variants = {
-    primary: 'bg-blue-600 text-white hover:bg-blue-700',
-    secondary: 'bg-gray-200 text-black hover:bg-gray-300',
-  }
-
-  return <button className={`${base} ${variants[variant]}`} {...props} />
-}
+export const Button = ({ children, className = "", ...props }: ButtonProps) => {
+  return (
+    <button
+      {...props}
+      className={`px-6 py-2 rounded-lg font-semibold transition text-white
+        bg-orange-500 hover:bg-orange-600 
+        dark:bg-orange-500 dark:hover:bg-orange-600 
+        ${className}`}
+    >
+      {children}
+    </button>
+  );
+};
