@@ -4,9 +4,10 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import clsx from "clsx";
 import { ThemeToggle } from "@/features/theme-toggle";
+import { useEffect, useState } from "react";
 
 const navItems = [
-  { label: "Дашборд", href: "/dashboard" },
+  { label: "Главная", href: "/" },
   { label: "Платежи", href: "/payments" },
   { label: "Запросы", href: "/requests" },
 ];
@@ -20,8 +21,14 @@ const extraItems = [
 export const Sidebar = () => {
   const pathname = usePathname();
 
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
   return (
-    <aside className="w-64 bg-[#1a1a1a] text-gray-300 p-6 flex flex-col">
+    <aside className="w-64 min-w-48 bg-[#1a1a1a] text-gray-300 p-6 flex flex-col">
       <div className="flex justify-between items-center mb-8">
         <h1 className="text-orange-500 font-bold text-xl">Римский</h1>
         <ThemeToggle />
@@ -33,7 +40,7 @@ export const Sidebar = () => {
             href={href}
             className={clsx(
               "block px-2 py-1 rounded transition",
-              pathname === href
+              mounted && pathname === href
                 ? "bg-[#292929] text-white font-semibold"
                 : "hover:text-white",
             )}
@@ -50,7 +57,7 @@ export const Sidebar = () => {
             href={href}
             className={clsx(
               "block px-2 py-1 rounded transition",
-              pathname === href
+              mounted && pathname === href
                 ? "bg-[#292929] text-white font-semibold"
                 : "hover:text-white",
             )}

@@ -1,5 +1,5 @@
-"use client";
+import { DashboardPage } from "@/screens/dashboard";
 
-export default function Home() {
-  return <main className="p-10 max-w-full mx-auto">Homepage</main>;
+export default function DashboardRoute() {
+  return <DashboardPage />;
 }
