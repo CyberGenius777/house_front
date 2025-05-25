@@ -1,19 +1,15 @@
 'use client'
 
 import { FC, PropsWithChildren } from 'react'
-import { ReduxProvider } from '@/shared/lib/store/provider'
+
+import { Provider } from 'react-redux'
+
 import { EnhancedStore } from '@reduxjs/toolkit'
 
-export const withStore = (store: EnhancedStore) => {
-  return (Component: FC<PropsWithChildren>) => {
-    const WithStore: FC<PropsWithChildren> = (props) => (
-      <ReduxProvider store={store}>
-        <Component {...props} />
-      </ReduxProvider>
-    )
+interface Props extends PropsWithChildren {
+  store: EnhancedStore
+}
 
-    WithStore.displayName = `withStore(${Component.displayName || Component.name || 'Component'})`
-
-    return WithStore
-  }
+export const WithStore: FC<Props> = ({ store, children }) => {
+  return <Provider store={store}>{children}</Provider>
 }
