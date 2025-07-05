@@ -1,4 +1,4 @@
-import { configureStore } from '@reduxjs/toolkit'
+import { configureStore, createSelector } from '@reduxjs/toolkit'
 import { userReducer } from '@/entities/user'
 import { TypedUseSelectorHook, useDispatch, useSelector } from 'react-redux'
 import { EmptySplitApi } from '@/shared/api/empty-split-api'
@@ -24,3 +24,4 @@ export type AppDispatch = ReturnType<typeof store>['dispatch']
 
 export const useAppDispatch = () => useDispatch<AppDispatch>()
 export const useAppSelector: TypedUseSelectorHook<RootState> = useSelector
+export const createAppSelector = createSelector.withTypes<RootState>()

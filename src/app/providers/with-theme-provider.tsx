@@ -1,10 +1,21 @@
-import { FC, PropsWithChildren } from "react";
-import { ThemeProvider } from "next-themes";
+'use client'
 
-export const WithThemeProvider: FC<PropsWithChildren> = ({ children }) => {
+import * as React from 'react'
+import { ThemeProvider as NextThemesProvider } from 'next-themes'
+
+export const WithThemeProvider = ({
+  children,
+  ...props
+}: React.ComponentProps<typeof NextThemesProvider>) => {
   return (
-    <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
+    <NextThemesProvider
+      {...props}
+      attribute='class'
+      defaultTheme='system'
+      enableSystem
+      disableTransitionOnChange
+    >
       {children}
-    </ThemeProvider>
-  );
-};
+    </NextThemesProvider>
+  )
+}

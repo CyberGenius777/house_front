@@ -1,25 +1,25 @@
-"use client";
+'use client'
 
-import { FC } from "react";
-import { useForm } from "react-hook-form";
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { Button } from "@/shared/ui/Button";
+import { FC } from 'react'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Button } from '@/shared/ui/button'
+import { Input } from '@/shared/ui/input'
+import { Typography } from '@/shared/ui/typography'
 
 const loginSchema = z.object({
-  login: z.string().min(1, "Логин обязателен"),
-  password: z
-    .string()
-    .min(1, "Пароль обязателен")
-    .refine((value) => value.length >= 6, { message: "минимум 6 символов" }),
-});
+  login: z.string().min(1, 'Логин обязателен'),
+  password: z.string().min(1, 'Пароль обязателен'),
+  // .refine((value) => value.length >= 6, { message: 'минимум 6 символов' }),
+})
 
-type LoginFormData = z.infer<typeof loginSchema>;
+type LoginFormData = z.infer<typeof loginSchema>
 
 interface AuthFormProps {
-  isLoading: boolean;
-  error?: string;
-  onSubmit: (data: LoginFormData) => void;
+  isLoading: boolean
+  error?: string
+  onSubmit: (data: LoginFormData) => void
 }
 
 export const AuthForm: FC<AuthFormProps> = ({ isLoading, error, onSubmit }) => {
@@ -28,44 +28,46 @@ export const AuthForm: FC<AuthFormProps> = ({ isLoading, error, onSubmit }) => {
     handleSubmit,
     formState: { errors, isSubmitting },
   } = useForm<LoginFormData>({
+    mode: 'onChange',
+    reValidateMode: 'onChange',
     resolver: zodResolver(loginSchema),
-  });
+  })
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+    <form onSubmit={handleSubmit(onSubmit)} className='space-y-4 '>
       <div>
-        <label className="block font-medium">Логин</label>
-        <input
-          type="text"
-          {...register("login")}
-          className="border border-gray-300 rounded px-3 py-2 w-full"
-        />
+        <label className='block font-medium'>Логин</label>
+        <Input type='text' {...register('login')} className='w-full' />
         {errors.login && (
-          <p className="text-red-500 text-sm">{errors.login.message}</p>
+          <Typography variant='danger' size='small'>
+            {errors.login.message}
+          </Typography>
         )}
       </div>
 
       <div>
-        <label className="block font-medium">Пароль</label>
-        <input
-          type="password"
-          {...register("password")}
-          className="border border-gray-300 rounded px-3 py-2 w-full"
+        <label className='block font-medium'>Пароль</label>
+        <Input
+          type='password'
+          {...register('password')}
+          className='border border-gray-300 rounded w-full'
         />
         {errors.password && (
-          <p className="text-red-500 text-sm">{errors.password.message}</p>
+          <Typography variant='danger' size='small'>
+            {errors.password.message}
+          </Typography>
         )}
       </div>
 
-      {error && <div className="text-red-700 ml-1 text-[14px]">{error}</div>}
+      {error && (
+        <Typography className='ml-1' variant='danger' size='small'>
+          {error}
+        </Typography>
+      )}
 
-      <Button
-        type="submit"
-        isLoading={isSubmitting || isLoading}
-        className="bg-blue-600 text-white rounded px-4 py-2 w-full hover:bg-blue-700 transition"
-      >
+      <Button type='submit' isLoading={isSubmitting || isLoading} className=' px-4 py-2 w-full'>
         Войти
       </Button>
     </form>
-  );
-};
+  )
+}
