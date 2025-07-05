@@ -1,6 +1,7 @@
 "use client";
 
 import { FC, PropsWithChildren, useState } from "react";
+import { useRouter } from "next/navigation";
 
 import { AuthForm } from "@/features/auth-form/ui/auth-form";
 import { selectIsAuthorized, setUser } from "@/entities/user";
@@ -8,9 +9,11 @@ import { useAppDispatch, useAppSelector } from "@/shared/store";
 import { mapLoginDtoToUserEntity, useLoginMutation } from "@/shared/api/auth";
 
 export const WithAuthForm: FC<PropsWithChildren> = ({ children }) => {
+  const { push } = useRouter();
+
   const isAuthorized = useAppSelector(selectIsAuthorized);
 
-  const [error, setError] = useState();
+  const [error, setError] = useState<string>();
 
   const dispatch = useAppDispatch();
   const [login, { isLoading }] = useLoginMutation();
@@ -20,6 +23,7 @@ export const WithAuthForm: FC<PropsWithChildren> = ({ children }) => {
       const response = await login(data).unwrap();
       const user = mapLoginDtoToUserEntity(response);
       dispatch(setUser(user));
+      push("/profile");
     } catch (e) {
       const message =
         (e as { data?: { error?: string } }).data?.error ||

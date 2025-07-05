@@ -27,7 +27,7 @@ export const Sidebar = () => {
 
   const handleLogout = async () => {
     await logout();
-    push("/");
+    push("/login");
   };
 
   return (
@@ -70,8 +70,8 @@ export const Sidebar = () => {
               className={clsx(
                 "block px-2 py-1 rounded transition",
                 pathname === href
-                  ? "bg-[#292929] text-white font-semibold"
-                  : "hover:text-white",
+                  ? "bg-[#292929] text-white font-semibold cursor-pointer"
+                  : "hover:text-white cursor-pointer",
               )}
             >
               {label}
