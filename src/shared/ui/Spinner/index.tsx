@@ -1,6 +1,7 @@
 "use client";
 
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
+
 import styles from "./spinner.module.css";
 
 interface SpinnerProps {
@@ -11,7 +12,7 @@ interface SpinnerProps {
 export const Spinner = ({ width = 22, color = "#fff" }: SpinnerProps) => {
   return (
     <span
-      className={clsx(styles.loader)}
+      className={cn(styles.loader)}
       style={{
         width: `${width}px`,
         height: `${width}px`,

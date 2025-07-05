@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
-import clsx from "clsx";
 
 import { ThemeToggle } from "@/features/theme-toggle";
 import { useLogoutMutation } from "@/shared/api/auth";
+import { cn } from "@/lib/utils";
 
 const navItems = [
   { label: "Главная", href: "/" },
@@ -41,7 +41,7 @@ export const Sidebar = () => {
           <Link
             key={href}
             href={href}
-            className={clsx(
+            className={cn(
               "block px-2 py-1 rounded transition",
               pathname === href
                 ? "bg-[#292929] text-white font-semibold"
@@ -67,7 +67,7 @@ export const Sidebar = () => {
             <Link
               key={href}
               href={href}
-              className={clsx(
+              className={cn(
                 "block px-2 py-1 rounded transition",
                 pathname === href
                   ? "bg-[#292929] text-white font-semibold cursor-pointer"
